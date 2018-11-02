@@ -1,0 +1,266 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div class="container-fluid top-header">
+    <div class="row">
+        <div class="col-lg-6 ">
+            <ul>
+                <li class="active">
+                    <a href="#">Previews</a>
+                </li>
+                <li>
+                    <a href="#">Dashboard</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!--top-header close-->
+<div class="container-fluid">
+    <div class="row ">
+        <!--right container-->
+        <div class="col-lg-12 right-container">
+
+            <div class="row">
+                <div class="col-lg-12 myinput">
+                    <div class="col-sm-2 widget-list-icon">
+                        <button class="fa-icon-list"
+                                style="display:inline;border-style:none;cursor:pointer;background: none;">
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active show" title="Widget View" href="#widget" data-toggle="tab"
+                                       role="tab" aria-selected="true" (click)="enablewidgetview()">
+                                        <span class="icon mdi mdi-settings">
+                                            <i class="fa fa-th" style="font-size:22px;color: #1574B1"></i>
+                                        </span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" title="List View" href="#list" data-toggle="tab" role="tab"
+                                       aria-selected="false" (click)="enablelistview()">
+                                        <span class="icon mdi mdi-email">
+                                            <i class="fa fa-list" style="font-size:22px;color: #1574B1"></i>
+                                        </span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </button>
+                    </div>
+                    <div class="col-sm-3 sortby" style="display:inline">
+                        <label for="sort"> Sort By:&nbsp;</label>
+                        <select id="sort-by" name="sort" (change)="sortByAz()">
+                            <option type='search' placeholder='Select option'>Select option</option>
+                            <option value="title(A to Z)">Title(A to Z)</option>
+                            <option value="title(Z to A)">Title(Z to A)</option>
+                            <option value="category(A to Z)">Category(A to Z)</option>
+                            <option value="category(Z to A)">Category(Z to A)</option>
+                        </select>
+                    </div>
+                    <div class=" col-lg-3" style="display:inline">
+                        <label for="category"> Category:&nbsp;</label>
+                        <select #category name="category" (change)='onCatSelected(category.value)'>
+                            <option>All</option>
+                            <option *ngFor="let widge of categories" [value]='widge'>
+                                {{ widge }}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="col-sm-2 reset-botton" style="display:inline">
+                        <button>Reset</button>
+                    </div>
+                    <div class="col-sm-2 search" style="display:inline; left:2%">
+                        <input #query (keyup)="filter(query.value)" type="text" placeholder="Search widget here..."
+                               name="search">
+                    </div>
+                </div>
+            </div>
+            <div class="tab-container">
+                <div class="tab-content">
+                    <!-- Trigger the modal with a button -->
+                    <div class="custom-menu">
+
+                        <!-- 
+                        <a href="#">
+                            <span class="expnd-all">Expand All</span>
+                        </a>
+                        <span>&nbsp;|&nbsp;</span>
+                        <a href="#">
+                            <span class="col-all">Collapse All</span>
+                        </a> -->
+                        <!-- <span>&nbsp;|&nbsp;</span> -->
+                        <a href="#">
+                            <span class="moldel-link pull-right" data-toggle="modal" data-target="#myModal">Customize Page</span>
+                        </a>
+                    </div>
+
+                    <!-- Modal start-->
+                    <div class="modal fade" id="myModal" role="dialog">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title">Widgets Store </h4>
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                </div>
+                                <div class="modal-body">
+                                    <div clas="row modal-row">
+                                        <div class="col-lg-4 left-pannel push-left">
+                                            <div class="search-widget">
+                                                Widgets:&nbsp;
+                                                <input #query1 (keyup)="filter1(query1.value)" type="text"
+                                                       placeholder="Search widget here..." name="search">
+                                            </div>
+                                            <div class="pqr" style="width:auto;height: auto;">
+                                                <ul class="list-group mylist-pannel">
+                                                    <li class="list-group-item " draggable="true"
+                                                        *ngFor="let widget of widgetList, let i = index">
+                                                        <span>
+                                                            <a href="#">{{ widget.name }} </a>
+                                                        </span>
+                                                        <br/>
+                                                        <span>
+                                                            <em>Category:</em>Name</span>
+                                                        <span class="select-widget pull-right">
+                                                            <input type="checkbox" (click)="open($event, widget)"
+                                                                   [checked]="checkCondition[widget.widgetkey]"
+                                                                   [ngModelOptions]="{standalone: true}"
+                                                                   [(ngModel)]="checkmodules[widget.widgetkey]">
+                                                        </span>&nbsp;
+                                                        <p>some dummy text some dummy text some dummy text some dummy
+                                                            text some dummy text some dummy text some dummy text some
+                                                            dummy
+                                                            textsome dummy text some dummy textsome dummy text some
+                                                            dummy textsome dummy text some dummy textsome dummy text
+                                                            some
+                                                            dummy text</p>
+
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-8 right-pannel pull-right">
+                                            <div class="top-head">
+                                                <h5 class="widget-title">Customize Widgets Layout </h5>
+
+                                            </div>
+                                            <span class="mytext">
+                                                <p>Add module items from the left column to display in the right panel. Remove
+                                                    and reorder module layout in the right panel.</p>
+                                            </span>
+                                            <hr>
+                                            <div *ngFor="let widget of widgetData" name="akf" class="widgets"
+                                                 draggable="true" [id]="widget.name" mwlDraggable
+                                                 (dragEnd)="dragEnd($event,widget)"
+                                                 style="width:210px;height:245px;cursor: all-scroll;background-color:#fff;font-size:12px;text-align:left;color: #004d99;margin:0px 0px 17px 17px; padding:15px 8px 0px 8px;">
+                                                    <span class='close-inner pull-right'
+                                                          class="close" data-dismiss="widgets">
+                                                    <strong (click)="removeWidget(widget)">×</strong>
+
+                                                </span>
+                                                <span>
+                                                    <strong>{{ widget.name }} </strong>
+                                                    <strong> - {{ widget.category }} </strong>
+                                                    <img class="img-css" src="../../assets/{{widget.image}}">
+
+                                                </span>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                                <div class="modal-footer" style="padding-top:10px;">
+                                    <span class='pull-right' style="padding:10px;display: inline; position: relative;">
+                                        <button type="button" class="btn btn-outline-dark"
+                                                data-dismiss="modal" #closeAddExpenseModal>Cancel</button>
+                                    </span>
+                                    <span class='pull-right' style="padding:10px;display: inline; position: relative;">
+                                        <button type="button" class="btn btn-outline-primary">Reset</button>
+                                    </span>
+
+                                    <span class='pull-right' style="padding:10px;display: inline;position: relative; ">
+                                        <button type="button" class="btn btn-outline-info"
+                                                (click)="saveData()">Save</button>
+                                    </span>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--model end-->
+                    <!-- widget view start -->
+                    <div id="widget" role="tabpanel" *ngIf="widgetview">
+                        <div>
+
+                            <div>
+
+                                <div *ngFor="let widget of widgets" class="widgets" [id]="widget.container">
+                                    <span>
+                                        <a href="{{ widget.url }}">{{ widget.name }}</a>
+                                    </span>
+                                    <span class='pull-right'
+                                          style="margin:0px 10px 0px 0px;width:35px;text-align:center;height:17px;background-color:#660000;border-radius:0px 35px 35px 0px;color:#fff;font-size:10px;font-weight: bold;">
+                                        {{ widget.category }}
+                                    </span>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <app-widgetview *ngIf="widgetview"></app-widgetview>
+                    <app-listview *ngIf="listview"></app-listview> -->
+
+                    <!--listview-->
+                    <div class="tab-pane" id="list" role="tabpanel" *ngIf="listview">
+
+                        <div clas="container list-row1">
+
+                            <div clas="row inner-row">
+
+                                <div class="col-lg-12 list">
+                                    <div class="list-header">
+                                        <div class="row col-lg-12 ">
+                                            <div class="col-lg-6 header-title">Category
+                                                <span class="caret"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <ul class="list-group ">
+                                        <li class="list-group-item" *ngFor="let widge of categories">
+                                            <div class="container col-lg-12 ">
+                                                <div class="col-lg-1 collab pull-left">
+                                                    <span class="collap">
+                                                        <a href="#demo1" data-toggle="collapse">
+                                                            <i class="fa fa-plus-square-o"
+                                                               style="font-size:20px;padding-top: 5px;"></i>
+                                                        </a>
+                                                    </span>&nbsp;
+                                                </div>
+                                                <div class="col-lg-11 colla" style="padding-left:18px;">
+                                                    {{ widge }}
+                                                </div>
+                                                <div id="demo1" class="collapse" *ngFor="let widget of widgets">
+                                                    <div class="colla2"
+                                                         style="margin-left:220px;background-color: rgb(248, 248, 248);padding-left: 10px;">
+                                                        <a href="{{ widget.url }}">{{ widget.name }} </a>
+                                                        <br>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+
+                                    </ul>
+
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>

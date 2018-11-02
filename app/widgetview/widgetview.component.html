@@ -1,0 +1,9 @@
+<div id="widget" role="tabpanel">
+    <div>
+        <div>
+            <div *ngFor="let widget of widgets" class="widgets" [id]="widget.container">
+                <a href="{{widget.url}}" >{{ widget.name }}</a>
+            </div>
+        </div>
+    </div>
+</div>
